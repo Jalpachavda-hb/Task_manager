@@ -1,0 +1,47 @@
+.welcome{
+  color: rgb(3, 3, 51);
+}
+.loginbtn{
+   color: rgb(255, 255, 255) !important;
+   background-color: rgb(3, 3, 51) !important;
+}
+.bgcolor{
+   background-color: rgb(3, 3, 53) !important;
+}
+
+
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 1.2rem;
+  z-index: 2;
+}
+
+.password-toggle-icon:hover {
+  color: #343a40;
+}
+
+/* Optional: customize button */
+.loginbtn {
+  background-color: rgb(3, 3, 53) !important;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+
+
+.bgcolor {
+  background-color: rgb(3, 3, 53) !important;
+}
+
+.welcome {
+  color: rgb(3, 3, 53) !important;
+}
+span.password-toggle-icon {
+    margin-top: 14px;
+}
