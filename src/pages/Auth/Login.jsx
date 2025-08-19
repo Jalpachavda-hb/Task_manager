@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import team from "../../assets/all.png";
-import "./login.css";
+import "./Login.css";
 import { ValidateEmail } from "../../utils/helper";
 import axiosinstance from "../../utils/axiosinstance";
 import { useNavigate } from "react-router-dom";
