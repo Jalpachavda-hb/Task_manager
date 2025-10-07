@@ -83,7 +83,7 @@ import { PiFilePdfDuotone } from "react-icons/pi";
 import UserCard from "../../cmponents/layouts/Cards/UserCard";
 import { Toaster, toast } from "react-hot-toast";
 import { jsPDF } from "jspdf";
-import * as XLSX from "xlsx";
+import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import autoTable from "jspdf-autotable";
 const ManageTask = () => {
@@ -104,36 +104,6 @@ const ManageTask = () => {
     { name: "Bob", age: 30 },
   ];
 
-  // download task report
-// const handleDownloadReport = async () => {
-//    console.log("btn clicked")
-//   try {
-//     const response = await axiosinstance.get(API_PATHS.REPORT.EXPORT_TASK, {
-//       responseType: "blob",
-//     });
-
-//     const contentType = response.headers["content-type"];
-//     const blob = new Blob([response.data], {
-//       type: contentType || "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-//     });
-
-//     const url = window.URL.createObjectURL(blob);
-//     const link = document.createElement("a");
-//     link.href = url;
-//     link.setAttribute("download", "task_details.xlsx");
-
-//     document.body.appendChild(link);
-//     setTimeout(() => {
-//       link.click();
-//       link.remove();
-//       window.URL.revokeObjectURL(url);
-//     }, 100);
-//     console.log("btn clicked")
-//   } catch (error) {
-//     console.error("Download failed:", error.response || error);
-//     toast.error("Failed to download task details. Please try again.");
-//   }
-// };
   const handleDownloadPdf = () => {
     const doc = new jsPDF();
 
@@ -195,6 +165,76 @@ const ManageTask = () => {
     doc.save("team_member_report.pdf");
   };
 
+  const handleDownload = async () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Report");
+
+    // 🔹 Fetch image from /public folder
+    const response = await fetch(
+      "http://localhost:8000/uploads/1753343041211-profile.jpg"
+    ); // relative to /public
+    const blob = await response.blob();
+    const arrayBuffer = await blob.arrayBuffer();
+
+    // 🔹 Add the logo to workbook
+    const imageId = workbook.addImage({
+      buffer: arrayBuffer,
+      extension: "png",
+    });
+
+    // 🔹 Place the logo in sheet
+    worksheet.addImage(imageId, {
+      tl: { col: 0, row: 0 }, // top-left
+      ext: { width: 150, height: 80 },
+    });
+
+    // 🔹 Add some space after logo
+    worksheet.addRow([]);
+    worksheet.addRow([]);
+
+    // 🔹 Add Header Row
+    const headerRow = worksheet.addRow(["Name", "Email", "Phone", "Status"]);
+
+    // Style header cells
+    headerRow.eachCell((cell) => {
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "FF1F4E78" }, // dark blue
+      };
+      cell.font = {
+        color: { argb: "FFFFFFrFF" },
+        bold: true,
+        size: 12,
+      };
+      cell.alignment = { horizontal: "center", vertical: "middle" };
+      cell.border = {
+        top: { style: "thin" },
+        left: { style: "thin" },
+        bottom: { style: "thin" },
+        right: { style: "thin" },
+      };
+    });
+
+    // 🔹 Add sample data
+    worksheet.addRows([
+      ["John Doe", "john@example.com", "1234567890", "Active"],
+      ["Jane Smith", "jane@example.com", "0987654321", "Inactive"],
+    ]);
+
+    // 🔹 Adjust column widths
+    worksheet.columns = [
+      { width: 20 },
+      { width: 30 },
+      { width: 20 },
+      { width: 15 },
+    ];
+
+    // 🔹 Save file
+    const buffer = await workbook.xlsx.writeBuffer();
+    saveAs(new Blob([buffer]), "Report.xlsx");
+  };
+
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -218,6 +258,14 @@ const ManageTask = () => {
             >
               <PiFilePdfDuotone className="text-lg" />
               Download User Report
+            </button>
+
+            <button
+              className="flex items-center gap-2 text-xs md:text-sm text-lime-900 bg-lime-100 px-3 py-2 rounded border border-lime-200 hover:border-lime-400"
+              onClick={handleDownload}
+            >
+              <PiFilePdfDuotone className="text-lg" />
+              Download User Report xecel
             </button>
           </div>
         </div>

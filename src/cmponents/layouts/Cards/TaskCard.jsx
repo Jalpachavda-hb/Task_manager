@@ -12,18 +12,18 @@ const TaskCard = ({
   status,
   createdAt,
   dueDate,
-  
+
   assignTo,
   attachmentCount,
   completedCount,
   todochecklist,
- onEdit,
+  onEdit,
   onDelete,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
- const totalTasks = todochecklist?.length || 0;
+  const totalTasks = todochecklist?.length || 0;
   const doneTasks = completedCount || 0;
   const progressPercent = totalTasks > 0 ? (doneTasks / totalTasks) * 100 : 0;
 
@@ -63,7 +63,7 @@ const TaskCard = ({
               <button
                 onClick={() => {
                   setMenuOpen(false);
-                 onEdit(); 
+                  onEdit();
                 }}
                 className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
               >
@@ -138,6 +138,7 @@ const TaskCard = ({
 
             <div className="flex items-center justify-between mt-3">
               <AvtarGroup avatars={assignTo || []} />
+
               {attachmentCount > 0 && (
                 <div className="flex items-center gap-2 bg-blue-100 px-2.5 py-1.5 rounded-lg">
                   <LuPaperclip className="text-primary" />

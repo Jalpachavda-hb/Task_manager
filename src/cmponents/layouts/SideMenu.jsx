@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import { SIDE_MENU_DATA, SIDE_MENU_USER_DATA } from "../../utils/data";
 import { UserContext } from "../../context/UserContext";
@@ -40,7 +39,6 @@ const SideMenu = ({ activeMenu }) => {
             alt="img"
             className="w-20 h-20 rounded-full object-cover border"
           />
-        
         </div>
         {user?.role === "admin" && (
           <span className="text-xs bg-blue-900 text-white rounded px-2 py-0.5 mt-2">

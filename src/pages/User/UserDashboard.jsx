@@ -1,17 +1,3 @@
-// import React from 'react'
-
-
-// const UserDashboard = () => {
-//   return (
-//     <div>UserDashboard</div>
-//   )
-// }
-
-// export default UserDashboard
-
-
-
-
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useUserAuth } from "../../hooks/useUserAuth";
@@ -21,7 +7,6 @@ import { API_PATHS } from "../../utils/apiPaths";
 import axiosinstance from "../../utils/axiosinstance";
 import moment from "moment";
 import { LuArrowRight } from "react-icons/lu";
-import { IoMdCard } from "react-icons/io";
 import { addThousandsSeparator } from "../../utils/helper";
 import InfoCard from "../../cmponents/layouts/Cards/Infocard";
 import TaskListTable from "../../cmponents/layouts/TaskListTable";

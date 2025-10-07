@@ -188,7 +188,7 @@ const CreateTask = () => {
     <DashboardLayout activeMenu="Create Task">
       <Toaster />
       <div className="mt-5">
-        <div className="grid grid-cols-1 md:grid-cols-4 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 mt-4">
           <div className="form-card col-span-3 max-w-3xl w-full p-5 bg-white shadow-md rounded-xl">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold">
